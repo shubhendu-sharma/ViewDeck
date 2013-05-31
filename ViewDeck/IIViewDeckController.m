@@ -87,7 +87,7 @@ __typeof__(h) __h = (h);                                    \
 #import <QuartzCore/QuartzCore.h>
 #import <objc/message.h>
 #import "WrapController.h"
-
+#import "FGalleryViewController.h"
 #define DURATION_FAST 0.3
 #define DURATION_SLOW 0.3
 #define SLIDE_DURATION(animated,duration) ((animated) ? (duration) : 0)
@@ -699,6 +699,25 @@ __typeof__(h) __h = (h);                                    \
     [self relayAppearanceMethod:^(UIViewController *controller) {
         [controller didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     }];
+}
+
+#pragma mark - rotation ios 6.0
+
+-(BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    if ([[[((UINavigationController*)self.centerController).viewControllers lastObject] class]isSubclassOfClass:[FGalleryViewController class]]) {
+        return UIInterfaceOrientationMaskAll;
+    }else
+    {
+          return UIInterfaceOrientationMaskPortrait;
+    }
+  
 }
 
 - (void)arrangeViewsAfterRotation {
